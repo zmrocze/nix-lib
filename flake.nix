@@ -8,7 +8,7 @@
     # my-lib.url = "git+file:/home/zmrocze/code/my-lib/nix-lib?branch=main";
   };
 
-  outputs = inputs@{ self, nixpkgs, flake-parts, my-lib, lib, ... }:
+  outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
     let
       # We leave it to just linux to be able to run `nix flake check` on linux, 
       # see bug https://github.com/NixOS/nix/issues/4265
