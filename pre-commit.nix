@@ -5,7 +5,6 @@
   perSystem = { config, ... }:
     {
       devShells.dev-pre-commit = config.pre-commit.devShell;
-      # devShells.default = config.pre-commit.devShell;
 
       pre-commit = {
         settings = {

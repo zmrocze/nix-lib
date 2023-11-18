@@ -1,5 +1,5 @@
 { pkgs
-#  ,inputs 
+  #  ,inputs 
 }: rec {
   concatFiles = pkgs.lib.strings.concatMap builtins.readFile;
 
@@ -19,23 +19,26 @@
   mkDir = name: dir:
     pkgs.runCommand name { } (''
       mkdir res
-    '' + (pkgs.lib.concatMapStrings (path:
-      let
-        copyCmd = if path == "" then
-          (drv: ''
-            cp -r ${drv}/* res
-          '')
-        else
-          (drv: ''
-            mkdir -p res/${path}
-            chmod +w res/${path}
-            cp -r ${drv}/* res/${path}
-          '');
-      in pkgs.lib.concatMapStrings copyCmd dir.${path})
+    '' + (pkgs.lib.concatMapStrings
+      (path:
+        let
+          copyCmd =
+            if path == "" then
+              (drv: ''
+                cp -r ${drv}/* res
+              '')
+            else
+              (drv: ''
+                mkdir -p res/${path}
+                chmod +w res/${path}
+                cp -r ${drv}/* res/${path}
+              '');
+        in
+        pkgs.lib.concatMapStrings copyCmd dir.${path})
       (builtins.attrNames dir)) + ''
-        mkdir $out
-        cp -r res/* $out
-      '');
+      mkdir $out
+      cp -r res/* $out
+    '');
 
   # Used to add pre-commit packages and shell hook to the other project shells
   mergeShells = devshell-1: devshell-2:
