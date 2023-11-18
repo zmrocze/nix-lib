@@ -31,10 +31,10 @@
         (import ./pre-commit.nix)
       ];
       inherit systems;
-      perSystem = { system, config, ... }:
-        let 
-          pkgs = nixpkgsFor system;
-        in
+      perSystem = { system, config, pkgs, ... }:
+        # let 
+        #   pkgs = nixpkgsFor system;
+        # in
         {
 
           devShells = {
