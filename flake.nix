@@ -43,7 +43,7 @@
           # apps;
         };
       flake = {
-        lib = import ./lib;
+        lib = pkgs: import ./lib { inherit pkgs; };
       };
     };
 }
