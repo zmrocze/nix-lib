@@ -1,6 +1,13 @@
 { pkgs
   #  ,inputs 
 }: rec {
+
+  # # [a] -> (a -> { name: String; value: Any }) -> AttrSet
+  genAttrsAux = as: f: builtins.foldl' (set: a: set // (let fa = f a; in { ${fa.name} = fa.value; })) { } as;
+
+  # [a] -> (a -> AttrSet) -> AttrSet
+  concatMapAttrSets = as: f: builtins.foldl' (set: a: set // f a) { } as;
+
   concatFiles = pkgs.lib.strings.concatMap builtins.readFile;
 
   ifd = cmd: import (pkgs.runCommand "ifd-for-${cmd}" { } cmd);
