@@ -6,7 +6,7 @@ lib: rec {
   # [a] -> (a -> AttrSet) -> AttrSet
   concatMapAttrSets = as: f: builtins.foldl' (set: a: set // f a) { } as;
 
-  concatFiles = strings.concatMap builtins.readFile;
+  concatFiles = lib.strings.concatMap builtins.readFile;
 
   # Recurse into the attrset and return all values that are not attrsets.
   # AttrSet -> [Any]
