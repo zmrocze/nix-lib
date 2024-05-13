@@ -5,7 +5,7 @@
     flake-parts.url = "github:hercules-ci/flake-parts";
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     # flake-utils.url = "github:numtide/flake-utils";
-
+    nixpkgs.url = "github:NixOS/nixpkgs";
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
@@ -43,7 +43,10 @@
           # apps;
         };
       flake = {
-        lib = import ./lib;
+        lib = import ./lib nixpkgs.lib;
+        overlays = {
+          default = import ./overlays inputs;
+        };
       };
     };
 }
