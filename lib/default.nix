@@ -10,6 +10,10 @@
 
   concatFiles = pkgs.lib.strings.concatMap builtins.readFile;
 
+  # Recurse into the attrset and return all values that are not attrsets.
+  # AttrSet -> [Any]
+  flattenAttrset = atrs: builtins.concatMap (x: if builtins.isAttrs x then flattenAttrset x else [ x ]) (lib.attrsets.attrValues atrs);
+
   ifd = cmd: import (pkgs.runCommand "ifd-for-${cmd}" { } cmd);
 
   # Derviation producing directory like that:
@@ -57,4 +61,11 @@
       shellHook = devshell-1.shellHook + devshell-2.shellHook;
     };
 
+  mergeShellList = shells: pkgs.mkShell {
+    packages = [ ];
+
+    inputsFrom = shells;
+
+    shellHook = builtins.concatStringsSep "\n" (map (shell: shell.shellHook) shells);
+  };
 }
