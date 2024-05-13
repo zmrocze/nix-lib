@@ -1,6 +1,6 @@
-{ pkgs
-  #  ,inputs 
-}: rec {
+pkgs
+#  ,inputs 
+: rec {
 
   # # [a] -> (a -> { name: String; value: Any }) -> AttrSet
   genAttrsAux = as: f: builtins.foldl' (set: a: set // (let fa = f a; in { ${fa.name} = fa.value; })) { } as;
