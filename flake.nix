@@ -47,6 +47,9 @@
         overlays = {
           default = import ./overlays inputs;
         };
+        nixosModules = {
+          default = import ./nixos-modules inputs;
+        };
       };
     };
 }
