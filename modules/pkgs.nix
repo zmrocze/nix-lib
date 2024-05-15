@@ -11,22 +11,21 @@
       };
       overlays = mkOption {
         description = "List of overlays.";
-        type = with types; listOf any;
+        type = with types; listOf anything;
         default = [ ];
       };
       extraConfig = mkOption {
         description = "Extra arguments passed to `import nixpkgs`. Merged with overlays and system.";
         default = { };
-        type = with types; attrsOf inferred;
+        type = with types; attrsOf anything;
       };
       config = mkOption {
         description = "Arguments passed to `import nixpkgs`. Missing `system`.";
         default = { inherit (config.pkgsConfig) overlays; } // config.pkgsConfig.extraConfig;
-        type = with types; attrsOf inferred;
+        type = with types; attrsOf anything;
       };
       nixpkgs = mkOption {
         description = "Nixpkgs flake input.";
-        type = with types; any;
         default = self.inputs.nixpkgs;
       };
       _allNixpkgs = mkOption {
