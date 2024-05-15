@@ -30,7 +30,7 @@
         default = self.inputs.nixpkgs;
       };
       _allNixpkgs = mkOption {
-        default = genAttrs systems (system: import config.pkgsConfig.nixpkgs ({ inherit system; } // config.pkgsConfig.config));
+        default = genAttrs config.pkgsConfig.systems (system: import config.pkgsConfig.nixpkgs ({ inherit system; } // config.pkgsConfig.config));
         internal = true;
       };
     };
