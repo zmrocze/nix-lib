@@ -6,6 +6,7 @@
     pre-commit-hooks.url = "github:cachix/pre-commit-hooks.nix";
     # flake-utils.url = "github:numtide/flake-utils";
     nixpkgs.url = "github:NixOS/nixpkgs";
+    devshell.url = "github:numtide/devshell";
   };
 
   outputs = inputs@{ self, nixpkgs, flake-parts, ... }:
@@ -47,9 +48,7 @@
         overlays = {
           default = import ./overlays inputs;
         };
-        nixosModules = {
-          default = import ./nixos-modules inputs;
-        };
+        flakeModules = import ./modules inputs;
       };
     };
 }
