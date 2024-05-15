@@ -4,7 +4,8 @@
     pkgsConfig = {
       systems = mkOption {
         type = with types; listOf string;
-        default = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+        # default = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
+        default = config.systems;
         description = ''
           The systems to build pkgs for.
         '';
