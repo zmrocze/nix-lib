@@ -15,13 +15,13 @@
         default = [ ];
       };
       extraConfig = mkOption {
-        description = "Extra arguments passed to `import nixpkgs`. Merged with overlays and systems.";
+        description = "Extra arguments passed to `import nixpkgs`. Merged with overlays and system.";
         default = { };
         type = with types; attrsOf inferred;
       };
       config = mkOption {
-        description = "Arguments passed to `import nixpkgs`.";
-        default = { inherit (config.pkgsConfig) systems overlays; } // config.pkgsConfig.extraConfig;
+        description = "Arguments passed to `import nixpkgs`. Missing `system`.";
+        default = { inherit (config.pkgsConfig) overlays; } // config.pkgsConfig.extraConfig;
         type = with types; attrsOf inferred;
       };
       nixpkgs = mkOption {
@@ -30,7 +30,7 @@
         default = self.inputs.nixpkgs;
       };
       _allNixpkgs = mkOption {
-        default = perSystem (system: import config.pkgsConfig.nixpkgs config.pkgsConfig.config);
+        default = genAttrs systems (system: import config.pkgsConfig.nixpkgs ({ inherit system; } // config.pkgsConfig.config));
         internal = true;
       };
     };
