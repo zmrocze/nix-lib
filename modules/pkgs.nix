@@ -1,7 +1,7 @@
 # flake part module for defining pkgs
 { config, lib, self, ... }: {
-  options = {
-    pkgsConfig = with lib; {
+  options = with lib; {
+    pkgsConfig = {
       systems = mkOption {
         type = with types; listOf string;
         default = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
