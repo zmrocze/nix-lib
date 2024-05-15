@@ -3,7 +3,7 @@
   options = with lib; {
     pkgsConfig = {
       systems = mkOption {
-        type = with types; listOf string;
+        type = with types; listOf str;
         # default = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
         default = config.systems;
         description = ''
