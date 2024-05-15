@@ -11,7 +11,7 @@
       };
       overlays = mkOption {
         description = "List of overlays.";
-        merge = lists.concatMap trivial.id;
+        type = with types; listOf any;
         default = [ ];
       };
       extraConfig = mkOption {
