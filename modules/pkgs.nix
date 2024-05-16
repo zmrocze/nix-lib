@@ -12,7 +12,7 @@
       };
       overlays = mkOption {
         description = "List of overlays.";
-        type = types.raw; # important to avoid infinite recursion when merging option
+        type = with types; listOf raw; # important to avoid infinite recursion when merging option
         default = [ ];
       };
       extraConfig = mkOption {
