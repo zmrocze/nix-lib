@@ -12,7 +12,7 @@
       };
       overlays = mkOption {
         description = "List of overlays.";
-        type = with types; listOf anything;
+        type = types.raw; # important to avoid infinite recursion when merging option
         default = [ ];
       };
       extraConfig = mkOption {
@@ -23,7 +23,7 @@
       config = mkOption {
         description = "Arguments passed to `import nixpkgs`. Missing `system`.";
         default = { inherit (config.pkgsConfig) overlays; } // config.pkgsConfig.extraConfig;
-        type = with types; attrsOf anything;
+        type = types.raw; # for good measure, if you set this you're overwritting and dont want options merged. 
       };
       nixpkgs = mkOption {
         description = "Nixpkgs flake input.";
@@ -39,4 +39,11 @@
       default = system: config.pkgsConfig._allNixpkgs.${system};
     };
   };
+
+  config = {
+    perSystem = { system, ... }: {
+      _module.args.pkgs = config.pkgsFor system;
+    };
+  };
+
 }
